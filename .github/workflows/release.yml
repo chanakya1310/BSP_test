@@ -62,10 +62,10 @@ jobs:
       - name: Export installer as .zip artifact
         steps:
           - run: 'mkdir target'
-        uses: actions/upload-artifact@v2
-        with:
-          name: Windows Installer
-          path: target/HandWriterSetup.exe
+          - uses: actions/upload-artifact@v2
+            with:
+              name: Windows Installer
+              path: target/HandWriterSetup.exe
 
   # Debian-release:
   #   runs-on: [ubuntu-latest]
