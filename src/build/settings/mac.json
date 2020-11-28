@@ -1,3 +1,5 @@
 {
-    "mac_bundle_identifier": "com.chunky.genre"
+    "mac_bundle_identifier": "com.chunky.genre",
+    "installer": "${app_name}.dmg",
+    "show_console_window": false
 }

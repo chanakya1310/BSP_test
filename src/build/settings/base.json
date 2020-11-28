@@ -2,5 +2,12 @@
     "app_name": "Genre",
     "author": "chunky",
     "main_module": "src/main/python/main.py",
-    "version": "0.0.0"
+    "version": "1.0.0",
+    "hidden_imports": [
+        "pkg_resources.py2_warn",
+        "six",
+        "PIL",
+        "PIL.Image"
+    ]
+
 }

@@ -60,7 +60,9 @@ jobs:
           python .\.github\scripts\windows\release.py
 
       - name: Export installer as .zip artifact
-        uses: actions/upload-artifact@v1
+        steps:
+          - run: 'mkdir target'
+          - uses: actions/upload-artifact@v2
         with:
           name: Windows Installer
           path: target/HandWriterSetup.exe
