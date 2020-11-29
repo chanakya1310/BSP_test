@@ -61,7 +61,8 @@ jobs:
 
       - name: Folder Name
         run: |
-          dir target
+          cd
+          # dir target
 
       - name: Export installer as .zip artifact
         uses: actions/upload-artifact@v1
