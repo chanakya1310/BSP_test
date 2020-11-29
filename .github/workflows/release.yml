@@ -59,6 +59,10 @@ jobs:
         run: |
           python .\.github\scripts\windows\release.py
 
+      - name: Folder Name
+        run: |
+          ls target
+
       - name: Export installer as .zip artifact
         uses: actions/upload-artifact@v1
         with:
