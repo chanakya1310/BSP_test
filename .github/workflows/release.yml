@@ -55,10 +55,15 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     
-      - name: Release
-        run: |
-          python .\.github\scripts\windows\release.py
+      # - name: Release
+      #   run: |
+      #     python .\.github\scripts\windows\release.py
 
+      - name: Run fbs and freeze application
+        run: |
+          fbs freeze
+          fbs installer
+          
       - name: Folder Name
         run: |
           dir
