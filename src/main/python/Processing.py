@@ -3,7 +3,6 @@ from Emotion_Detection2 import Emotion_Detection
 import cv2
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
 import pickle
 
 emotion_model_path = 'Emotion Detection_Files/model.h5' # Path for Emotion Classification Model
