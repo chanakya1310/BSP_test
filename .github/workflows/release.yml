@@ -38,50 +38,90 @@ jobs:
   #         name: macOS dmg
   #         path: target/HandWriter.dmg
 
-  Windows-release:
-    runs-on: [windows-latest]
+  # Windows-release:
+  #   runs-on: [windows-latest]
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
-        with:
-          python-version: "3.6"
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v1
+  #       with:
+  #         python-version: "3.6"
 
-      - name: Setup build environment
-        run: |
-          pip install pywin32
-          pip install -r requirements.txt
-          echo "::set-env name=VERSION::$(type version)" 
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  #     - name: Setup build environment
+  #       run: |
+  #         pip install pywin32
+  #         pip install -r requirements.txt
+  #         echo "::set-env name=VERSION::$(type version)" 
+  #       env:
+  #         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     
-      # - name: Release
-      #   run: |
-      #     python .\.github\scripts\windows\release.py
+  #     # - name: Release
+  #     #   run: |
+  #     #     python .\.github\scripts\windows\release.py
 
-      - name: Run fbs and freeze application
-        run: |
-          fbs freeze
-          fbs installer
+  #     - name: Run fbs and freeze application
+  #       run: |
+  #         fbs freeze
+  #         fbs installer
           
-      - name: Folder Name
-        run: |
-          dir
-          dir target
+  #     - name: Folder Name
+  #       run: |
+  #         dir
+  #         dir target
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN}}
-          file: target/GenreSetup.exe
-          asset_name: GenreSetup.exe
-          tag: ${{ github.ref}}
-          overwrite: true
+  #     - name: Upload binaries to release
+  #       uses: svenstaro/upload-release-action@v2
+  #       with:
+  #         repo_token: ${{ secrets.GITHUB_TOKEN}}
+  #         file: target/GenreSetup.exe
+  #         asset_name: GenreSetup.exe
+  #         tag: ${{ github.ref}}
+  #         overwrite: true
       # - name: Export installer as .zip artifact
       #   uses: actions/upload-artifact@v1
       #   with:
       #     name: Windows Installer
       #     path: target/GenreSetup.exe
+
+  MacOS-release:
+    name: Upload Release Asset macOS
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version}}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version}}
+
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run fbs
+        run: |
+          fbs freeze
+          fbs installer
+
+      - name: Checking Folder
+        run: |
+          pwd
+          ls
+      
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          file: target/Genre.dmg
+          asset_name: fbs_tutorial_app.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
+      
 
   # Debian-release:
   #   runs-on: [ubuntu-latest]
